@@ -1,0 +1,36 @@
+﻿
+@{
+    Layout = "~/Views/Shared/layout.cshtml";
+}
+
+<select id= "dep">
+
+</select>
+<select id= "doc">
+    <option>دکتر</option>
+</select>
+
+<div class="panel panel-primary filterable">
+    <div class="panel-heading">
+        <h3 class="panel-title">نوبتها</h3>
+        <div class="pull-left">
+            <button class="btn btn-default btn-xs btn-filter"><span class="fa fa-filter"></span> فیلتر </button>
+            <button class="btn btn-info btn-xs" onclick="addPrmtr()"><span class="fa fa-plus"></span> اضافه کردن نوع نوبت </button>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr class="filters">
+                <th><input type="text" class="form-control" placeholder="انتخاب کنید" disabled></th>
+                <th><input type="text" class="form-control" placeholder="نوع نوبت" disabled></th>
+                <th><input type="text" class="form-control" placeholder="دقیقه" disabled></th>
+            </tr>
+        </thead>
+        <tbody id="tblVstTyp">
+        </tbody>
+    </table>
+</div>
+
+@section script{
+    <script src="~/assets/js/vstTyp.js"></script>
+}

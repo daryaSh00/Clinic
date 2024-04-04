@@ -1,0 +1,946 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MediaLabModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAppointment">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fkDocID" Type="int" Nullable="false" />
+          <Property Name="fkPID" Type="int" />
+          <Property Name="fkVTID" Type="int" />
+          <Property Name="sDate" Type="datetime" Nullable="false" />
+          <Property Name="eDate" Type="datetime" />
+          <Property Name="fkAppointmentStatus" Type="int" />
+        </EntityType>
+        <EntityType Name="tblAppointmentStatus">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="appointmentStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCommon">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="itmContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="fkTypID" Type="int" Nullable="false" />
+          <Property Name="fkLngID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="department" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblDoctor">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="family" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="fkID" Type="int" Nullable="false" />
+          <Property Name="personalNum" Type="int" />
+          <Property Name="pass" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lngName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="language" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblPatient">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="family" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="mobile" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="nationalCode" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblType">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblVisitPerDoc">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fkDocID" Type="int" Nullable="false" />
+          <Property Name="fkTypeID" Type="int" Nullable="false" />
+          <Property Name="duration" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblVisitType">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '9715_MediaLab.dbo.viewAppointment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewAppointment">
+          <Key>
+            <PropertyRef Name="pkID" />
+            <PropertyRef Name="fkDocID" />
+            <PropertyRef Name="sDate" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="family" />
+            <PropertyRef Name="appointmentStatus" />
+          </Key>
+          <Property Name="pkID" Type="int" Nullable="false" />
+          <Property Name="fkDocID" Type="int" Nullable="false" />
+          <Property Name="sDate" Type="datetime" Nullable="false" />
+          <Property Name="fkPID" Type="int" />
+          <Property Name="name" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="family" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="fSDate" Type="nvarchar" MaxLength="10" />
+          <Property Name="time" Type="varchar" MaxLength="8" />
+          <Property Name="pName" Type="nvarchar" MaxLength="20" />
+          <Property Name="pFamily" Type="nvarchar" MaxLength="30" />
+          <Property Name="pMobile" Type="char" MaxLength="11" />
+          <Property Name="appointmentStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fkAppointmentStatus" Type="int" />
+          <Property Name="pNC" Type="char" MaxLength="10" />
+          <Property Name="type" Type="nvarchar" MaxLength="30" />
+          <Property Name="fkVTID" Type="int" />
+          <Property Name="eDate" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '9715_MediaLab.dbo.viewChangeLng' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewChangeLng">
+          <Key>
+            <PropertyRef Name="pkID" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="itmContent" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="fkTypID" />
+            <PropertyRef Name="fkLngID" />
+            <PropertyRef Name="lngName" />
+            <PropertyRef Name="language" />
+          </Key>
+          <Property Name="pkID" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="itmContent" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="fkTypID" Type="int" Nullable="false" />
+          <Property Name="fkLngID" Type="int" Nullable="false" />
+          <Property Name="lngName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="language" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '9715_MediaLab.dbo.viewCommon' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewCommon">
+          <Key>
+            <PropertyRef Name="pkID" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="fkTypID" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="pkID" Type="int" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fkTypID" Type="int" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view '9715_MediaLab.dbo.viewVisitPerDoc' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="viewVisitPerDoc">
+          <Key>
+            <PropertyRef Name="pkID" />
+            <PropertyRef Name="fkDocID" />
+            <PropertyRef Name="fkTypeID" />
+            <PropertyRef Name="duration" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="tblVstTypPkID" />
+          </Key>
+          <Property Name="pkID" Type="int" Nullable="false" />
+          <Property Name="fkDocID" Type="int" Nullable="false" />
+          <Property Name="fkTypeID" Type="int" Nullable="false" />
+          <Property Name="duration" Type="bigint" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="tblVstTypPkID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblAppointment_tblAppointmentStatus">
+          <End Role="tblAppointmentStatus" Type="Self.tblAppointmentStatus" Multiplicity="0..1" />
+          <End Role="tblAppointment" Type="Self.tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAppointmentStatus">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="fkAppointmentStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblDoctor">
+          <End Role="tblDoctor" Type="Self.tblDoctor" Multiplicity="1" />
+          <End Role="tblAppointment" Type="Self.tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDoctor">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="fkDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblPatient">
+          <End Role="tblPatient" Type="Self.tblPatient" Multiplicity="0..1" />
+          <End Role="tblAppointment" Type="Self.tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPatient">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="fkPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblVisitType">
+          <End Role="tblVisitType" Type="Self.tblVisitType" Multiplicity="0..1" />
+          <End Role="tblAppointment" Type="Self.tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVisitType">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="fkVTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCommon_tblLanguage">
+          <End Role="tblLanguage" Type="Self.tblLanguage" Multiplicity="1" />
+          <End Role="tblCommon" Type="Self.tblCommon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLanguage">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblCommon">
+              <PropertyRef Name="fkLngID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCommon_tblType">
+          <End Role="tblType" Type="Self.tblType" Multiplicity="1" />
+          <End Role="tblCommon" Type="Self.tblCommon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblType">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblCommon">
+              <PropertyRef Name="fkTypID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDoctor_tblDepartment">
+          <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="1" />
+          <End Role="tblDoctor" Type="Self.tblDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblDoctor">
+              <PropertyRef Name="fkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVisitPerDoc_tblDoctor">
+          <End Role="tblDoctor" Type="Self.tblDoctor" Multiplicity="1" />
+          <End Role="tblVisitPerDoc" Type="Self.tblVisitPerDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDoctor">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblVisitPerDoc">
+              <PropertyRef Name="fkDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVisitPerDoc_tblVisitType">
+          <End Role="tblVisitType" Type="Self.tblVisitType" Multiplicity="1" />
+          <End Role="tblVisitPerDoc" Type="Self.tblVisitPerDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVisitType">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblVisitPerDoc">
+              <PropertyRef Name="fkTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MediaLabModelStoreContainer">
+          <EntitySet Name="tblAppointment" EntityType="Self.tblAppointment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblAppointmentStatus" EntityType="Self.tblAppointmentStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCommon" EntityType="Self.tblCommon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDoctor" EntityType="Self.tblDoctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblLanguage" EntityType="Self.tblLanguage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPatient" EntityType="Self.tblPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblType" EntityType="Self.tblType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVisitPerDoc" EntityType="Self.tblVisitPerDoc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblVisitType" EntityType="Self.tblVisitType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="viewAppointment" EntityType="Self.viewAppointment" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewAppointment].[pkID] AS [pkID], 
+    [viewAppointment].[fkDocID] AS [fkDocID], 
+    [viewAppointment].[sDate] AS [sDate], 
+    [viewAppointment].[fkPID] AS [fkPID], 
+    [viewAppointment].[name] AS [name], 
+    [viewAppointment].[family] AS [family], 
+    [viewAppointment].[fSDate] AS [fSDate], 
+    [viewAppointment].[time] AS [time], 
+    [viewAppointment].[pName] AS [pName], 
+    [viewAppointment].[pFamily] AS [pFamily], 
+    [viewAppointment].[pMobile] AS [pMobile], 
+    [viewAppointment].[appointmentStatus] AS [appointmentStatus], 
+    [viewAppointment].[fkAppointmentStatus] AS [fkAppointmentStatus], 
+    [viewAppointment].[pNC] AS [pNC], 
+    [viewAppointment].[type] AS [type], 
+    [viewAppointment].[fkVTID] AS [fkVTID], 
+    [viewAppointment].[eDate] AS [eDate]
+    FROM [dbo].[viewAppointment] AS [viewAppointment]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewChangeLng" EntityType="Self.viewChangeLng" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewChangeLng].[pkID] AS [pkID], 
+    [viewChangeLng].[name] AS [name], 
+    [viewChangeLng].[itmContent] AS [itmContent], 
+    [viewChangeLng].[description] AS [description], 
+    [viewChangeLng].[fkTypID] AS [fkTypID], 
+    [viewChangeLng].[fkLngID] AS [fkLngID], 
+    [viewChangeLng].[lngName] AS [lngName], 
+    [viewChangeLng].[language] AS [language]
+    FROM [dbo].[viewChangeLng] AS [viewChangeLng]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewCommon" EntityType="Self.viewCommon" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewCommon].[pkID] AS [pkID], 
+    [viewCommon].[name] AS [name], 
+    [viewCommon].[fkTypID] AS [fkTypID], 
+    [viewCommon].[type] AS [type]
+    FROM [dbo].[viewCommon] AS [viewCommon]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="viewVisitPerDoc" EntityType="Self.viewVisitPerDoc" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [viewVisitPerDoc].[pkID] AS [pkID], 
+    [viewVisitPerDoc].[fkDocID] AS [fkDocID], 
+    [viewVisitPerDoc].[fkTypeID] AS [fkTypeID], 
+    [viewVisitPerDoc].[duration] AS [duration], 
+    [viewVisitPerDoc].[type] AS [type], 
+    [viewVisitPerDoc].[tblVstTypPkID] AS [tblVstTypPkID]
+    FROM [dbo].[viewVisitPerDoc] AS [viewVisitPerDoc]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_tblAppointment_tblAppointmentStatus" Association="Self.FK_tblAppointment_tblAppointmentStatus">
+            <End Role="tblAppointmentStatus" EntitySet="tblAppointmentStatus" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblDoctor" Association="Self.FK_tblAppointment_tblDoctor">
+            <End Role="tblDoctor" EntitySet="tblDoctor" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblPatient" Association="Self.FK_tblAppointment_tblPatient">
+            <End Role="tblPatient" EntitySet="tblPatient" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblVisitType" Association="Self.FK_tblAppointment_tblVisitType">
+            <End Role="tblVisitType" EntitySet="tblVisitType" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCommon_tblLanguage" Association="Self.FK_tblCommon_tblLanguage">
+            <End Role="tblLanguage" EntitySet="tblLanguage" />
+            <End Role="tblCommon" EntitySet="tblCommon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCommon_tblType" Association="Self.FK_tblCommon_tblType">
+            <End Role="tblType" EntitySet="tblType" />
+            <End Role="tblCommon" EntitySet="tblCommon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDoctor_tblDepartment" Association="Self.FK_tblDoctor_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblDoctor" EntitySet="tblDoctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVisitPerDoc_tblDoctor" Association="Self.FK_tblVisitPerDoc_tblDoctor">
+            <End Role="tblDoctor" EntitySet="tblDoctor" />
+            <End Role="tblVisitPerDoc" EntitySet="tblVisitPerDoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVisitPerDoc_tblVisitType" Association="Self.FK_tblVisitPerDoc_tblVisitType">
+            <End Role="tblVisitType" EntitySet="tblVisitType" />
+            <End Role="tblVisitPerDoc" EntitySet="tblVisitPerDoc" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MediaLabModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="hdata" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblAppointment" EntityType="MediaLabModel.tblAppointment" />
+          <EntitySet Name="tblAppointmentStatus" EntityType="MediaLabModel.tblAppointmentStatus" />
+          <EntitySet Name="tblDepartment" EntityType="MediaLabModel.tblDepartment" />
+          <EntitySet Name="tblDoctor" EntityType="MediaLabModel.tblDoctor" />
+          <EntitySet Name="tblPatient" EntityType="MediaLabModel.tblPatient" />
+          <EntitySet Name="tblVisitType" EntityType="MediaLabModel.tblVisitType" />
+          <AssociationSet Name="FK_tblAppointment_tblAppointmentStatus" Association="MediaLabModel.FK_tblAppointment_tblAppointmentStatus">
+            <End Role="tblAppointmentStatus" EntitySet="tblAppointmentStatus" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblDoctor" Association="MediaLabModel.FK_tblAppointment_tblDoctor">
+            <End Role="tblDoctor" EntitySet="tblDoctor" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblPatient" Association="MediaLabModel.FK_tblAppointment_tblPatient">
+            <End Role="tblPatient" EntitySet="tblPatient" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblAppointment_tblVisitType" Association="MediaLabModel.FK_tblAppointment_tblVisitType">
+            <End Role="tblVisitType" EntitySet="tblVisitType" />
+            <End Role="tblAppointment" EntitySet="tblAppointment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblDoctor_tblDepartment" Association="MediaLabModel.FK_tblDoctor_tblDepartment">
+            <End Role="tblDepartment" EntitySet="tblDepartment" />
+            <End Role="tblDoctor" EntitySet="tblDoctor" />
+          </AssociationSet>
+          <EntitySet Name="tblVisitPerDoc" EntityType="MediaLabModel.tblVisitPerDoc" />
+          <AssociationSet Name="FK_tblVisitPerDoc_tblDoctor" Association="MediaLabModel.FK_tblVisitPerDoc_tblDoctor">
+            <End Role="tblDoctor" EntitySet="tblDoctor" />
+            <End Role="tblVisitPerDoc" EntitySet="tblVisitPerDoc" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblVisitPerDoc_tblVisitType" Association="MediaLabModel.FK_tblVisitPerDoc_tblVisitType">
+            <End Role="tblVisitType" EntitySet="tblVisitType" />
+            <End Role="tblVisitPerDoc" EntitySet="tblVisitPerDoc" />
+          </AssociationSet>
+          <EntitySet Name="viewVisitPerDoc" EntityType="MediaLabModel.viewVisitPerDoc" />
+          <EntitySet Name="viewAppointment" EntityType="MediaLabModel.viewAppointment" />
+          <EntitySet Name="tblCommon" EntityType="MediaLabModel.tblCommon" />
+          <EntitySet Name="viewCommon" EntityType="MediaLabModel.viewCommon" />
+          <EntitySet Name="tblType" EntityType="MediaLabModel.tblType" />
+          <AssociationSet Name="FK_tblCommon_tblType" Association="MediaLabModel.FK_tblCommon_tblType">
+            <End Role="tblType" EntitySet="tblType" />
+            <End Role="tblCommon" EntitySet="tblCommon" />
+          </AssociationSet>
+          <EntitySet Name="tblLanguage" EntityType="MediaLabModel.tblLanguage" />
+          <AssociationSet Name="FK_tblCommon_tblLanguage" Association="MediaLabModel.FK_tblCommon_tblLanguage">
+            <End Role="tblLanguage" EntitySet="tblLanguage" />
+            <End Role="tblCommon" EntitySet="tblCommon" />
+          </AssociationSet>
+          <EntitySet Name="viewChangeLng" EntityType="MediaLabModel.viewChangeLng" />
+        </EntityContainer>
+        <EntityType Name="tblAppointment">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fkDocID" Type="Int32" Nullable="false" />
+          <Property Name="fkPID" Type="Int32" />
+          <Property Name="fkVTID" Type="Int32" />
+          <Property Name="sDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="eDate" Type="DateTime" Precision="3" />
+          <Property Name="fkAppointmentStatus" Type="Int32" />
+          <NavigationProperty Name="tblAppointmentStatus" Relationship="MediaLabModel.FK_tblAppointment_tblAppointmentStatus" FromRole="tblAppointment" ToRole="tblAppointmentStatus" />
+          <NavigationProperty Name="tblDoctor" Relationship="MediaLabModel.FK_tblAppointment_tblDoctor" FromRole="tblAppointment" ToRole="tblDoctor" />
+          <NavigationProperty Name="tblPatient" Relationship="MediaLabModel.FK_tblAppointment_tblPatient" FromRole="tblAppointment" ToRole="tblPatient" />
+          <NavigationProperty Name="tblVisitType" Relationship="MediaLabModel.FK_tblAppointment_tblVisitType" FromRole="tblAppointment" ToRole="tblVisitType" />
+        </EntityType>
+        <EntityType Name="tblAppointmentStatus">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="appointmentStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAppointment" Relationship="MediaLabModel.FK_tblAppointment_tblAppointmentStatus" FromRole="tblAppointmentStatus" ToRole="tblAppointment" />
+        </EntityType>
+        <EntityType Name="tblDepartment">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="department" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblDoctor" Relationship="MediaLabModel.FK_tblDoctor_tblDepartment" FromRole="tblDepartment" ToRole="tblDoctor" />
+        </EntityType>
+        <EntityType Name="tblDoctor">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="family" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="fkID" Type="Int32" Nullable="false" />
+          <Property Name="personalNum" Type="Int32" />
+          <Property Name="pass" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAppointment" Relationship="MediaLabModel.FK_tblAppointment_tblDoctor" FromRole="tblDoctor" ToRole="tblAppointment" />
+          <NavigationProperty Name="tblDepartment" Relationship="MediaLabModel.FK_tblDoctor_tblDepartment" FromRole="tblDoctor" ToRole="tblDepartment" />
+          <NavigationProperty Name="tblVisitPerDoc" Relationship="MediaLabModel.FK_tblVisitPerDoc_tblDoctor" FromRole="tblDoctor" ToRole="tblVisitPerDoc" />
+        </EntityType>
+        <EntityType Name="tblPatient">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="family" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="mobile" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="nationalCode" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tblAppointment" Relationship="MediaLabModel.FK_tblAppointment_tblPatient" FromRole="tblPatient" ToRole="tblAppointment" />
+        </EntityType>
+        <EntityType Name="tblVisitType">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblAppointment" Relationship="MediaLabModel.FK_tblAppointment_tblVisitType" FromRole="tblVisitType" ToRole="tblAppointment" />
+          <NavigationProperty Name="tblVisitPerDoc" Relationship="MediaLabModel.FK_tblVisitPerDoc_tblVisitType" FromRole="tblVisitType" ToRole="tblVisitPerDoc" />
+        </EntityType>
+        <Association Name="FK_tblAppointment_tblAppointmentStatus">
+          <End Type="MediaLabModel.tblAppointmentStatus" Role="tblAppointmentStatus" Multiplicity="0..1" />
+          <End Type="MediaLabModel.tblAppointment" Role="tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblAppointmentStatus">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="fkAppointmentStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblDoctor">
+          <End Type="MediaLabModel.tblDoctor" Role="tblDoctor" Multiplicity="1" />
+          <End Type="MediaLabModel.tblAppointment" Role="tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDoctor">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="fkDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblPatient">
+          <End Type="MediaLabModel.tblPatient" Role="tblPatient" Multiplicity="0..1" />
+          <End Type="MediaLabModel.tblAppointment" Role="tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPatient">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="fkPID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblAppointment_tblVisitType">
+          <End Type="MediaLabModel.tblVisitType" Role="tblVisitType" Multiplicity="0..1" />
+          <End Type="MediaLabModel.tblAppointment" Role="tblAppointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVisitType">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblAppointment">
+              <PropertyRef Name="fkVTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblDoctor_tblDepartment">
+          <End Type="MediaLabModel.tblDepartment" Role="tblDepartment" Multiplicity="1" />
+          <End Type="MediaLabModel.tblDoctor" Role="tblDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDepartment">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblDoctor">
+              <PropertyRef Name="fkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblVisitPerDoc">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fkDocID" Type="Int32" Nullable="false" />
+          <Property Name="fkTypeID" Type="Int32" Nullable="false" />
+          <Property Name="duration" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="tblDoctor" Relationship="MediaLabModel.FK_tblVisitPerDoc_tblDoctor" FromRole="tblVisitPerDoc" ToRole="tblDoctor" />
+          <NavigationProperty Name="tblVisitType" Relationship="MediaLabModel.FK_tblVisitPerDoc_tblVisitType" FromRole="tblVisitPerDoc" ToRole="tblVisitType" />
+        </EntityType>
+        <Association Name="FK_tblVisitPerDoc_tblDoctor">
+          <End Type="MediaLabModel.tblDoctor" Role="tblDoctor" Multiplicity="1" />
+          <End Type="MediaLabModel.tblVisitPerDoc" Role="tblVisitPerDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDoctor">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblVisitPerDoc">
+              <PropertyRef Name="fkDocID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblVisitPerDoc_tblVisitType">
+          <End Type="MediaLabModel.tblVisitType" Role="tblVisitType" Multiplicity="1" />
+          <End Type="MediaLabModel.tblVisitPerDoc" Role="tblVisitPerDoc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblVisitType">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblVisitPerDoc">
+              <PropertyRef Name="fkTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="viewVisitPerDoc">
+          <Key>
+            <PropertyRef Name="pkID" />
+            <PropertyRef Name="fkDocID" />
+            <PropertyRef Name="fkTypeID" />
+            <PropertyRef Name="duration" />
+            <PropertyRef Name="type" />
+            <PropertyRef Name="tblVstTypPkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" />
+          <Property Name="fkDocID" Type="Int32" Nullable="false" />
+          <Property Name="fkTypeID" Type="Int32" Nullable="false" />
+          <Property Name="duration" Type="Int64" Nullable="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="tblVstTypPkID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="viewAppointment">
+          <Key>
+            <PropertyRef Name="pkID" />
+            <PropertyRef Name="fkDocID" />
+            <PropertyRef Name="sDate" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="family" />
+            <PropertyRef Name="appointmentStatus" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" />
+          <Property Name="fkDocID" Type="Int32" Nullable="false" />
+          <Property Name="sDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fkPID" Type="Int32" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="family" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="fSDate" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="time" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="pName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="pFamily" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="pMobile" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="appointmentStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fkAppointmentStatus" Type="Int32" />
+          <Property Name="pNC" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="fkVTID" Type="Int32" />
+          <Property Name="eDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tblCommon">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="itmContent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fkTypID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblType" Relationship="MediaLabModel.FK_tblCommon_tblType" FromRole="tblCommon" ToRole="tblType" />
+          <Property Name="fkLngID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblLanguage" Relationship="MediaLabModel.FK_tblCommon_tblLanguage" FromRole="tblCommon" ToRole="tblLanguage" />
+        </EntityType>
+        <EntityType Name="viewCommon">
+          <Key>
+            <PropertyRef Name="pkID" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="fkTypID" />
+            <PropertyRef Name="type" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fkTypID" Type="Int32" Nullable="false" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblType">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCommon" Relationship="MediaLabModel.FK_tblCommon_tblType" FromRole="tblType" ToRole="tblCommon" />
+        </EntityType>
+        <Association Name="FK_tblCommon_tblType">
+          <End Type="MediaLabModel.tblType" Role="tblType" Multiplicity="1" />
+          <End Type="MediaLabModel.tblCommon" Role="tblCommon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblType">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblCommon">
+              <PropertyRef Name="fkTypID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblLanguage">
+          <Key>
+            <PropertyRef Name="pkID" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lngName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="language" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCommon" Relationship="MediaLabModel.FK_tblCommon_tblLanguage" FromRole="tblLanguage" ToRole="tblCommon" />
+        </EntityType>
+        <Association Name="FK_tblCommon_tblLanguage">
+          <End Type="MediaLabModel.tblLanguage" Role="tblLanguage" Multiplicity="1" />
+          <End Type="MediaLabModel.tblCommon" Role="tblCommon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLanguage">
+              <PropertyRef Name="pkID" />
+            </Principal>
+            <Dependent Role="tblCommon">
+              <PropertyRef Name="fkLngID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="viewChangeLng">
+          <Key>
+            <PropertyRef Name="pkID" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="itmContent" />
+            <PropertyRef Name="description" />
+            <PropertyRef Name="fkTypID" />
+            <PropertyRef Name="fkLngID" />
+            <PropertyRef Name="lngName" />
+            <PropertyRef Name="language" />
+          </Key>
+          <Property Name="pkID" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="itmContent" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fkTypID" Type="Int32" Nullable="false" />
+          <Property Name="fkLngID" Type="Int32" Nullable="false" />
+          <Property Name="lngName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="language" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MediaLabModelStoreContainer" CdmEntityContainer="hdata">
+          <EntitySetMapping Name="tblAppointment">
+            <EntityTypeMapping TypeName="MediaLabModel.tblAppointment">
+              <MappingFragment StoreEntitySet="tblAppointment">
+                <ScalarProperty Name="fkAppointmentStatus" ColumnName="fkAppointmentStatus" />
+                <ScalarProperty Name="eDate" ColumnName="eDate" />
+                <ScalarProperty Name="sDate" ColumnName="sDate" />
+                <ScalarProperty Name="fkVTID" ColumnName="fkVTID" />
+                <ScalarProperty Name="fkPID" ColumnName="fkPID" />
+                <ScalarProperty Name="fkDocID" ColumnName="fkDocID" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAppointmentStatus">
+            <EntityTypeMapping TypeName="MediaLabModel.tblAppointmentStatus">
+              <MappingFragment StoreEntitySet="tblAppointmentStatus">
+                <ScalarProperty Name="appointmentStatus" ColumnName="appointmentStatus" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDepartment">
+            <EntityTypeMapping TypeName="MediaLabModel.tblDepartment">
+              <MappingFragment StoreEntitySet="tblDepartment">
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblDoctor">
+            <EntityTypeMapping TypeName="MediaLabModel.tblDoctor">
+              <MappingFragment StoreEntitySet="tblDoctor">
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="personalNum" ColumnName="personalNum" />
+                <ScalarProperty Name="fkID" ColumnName="fkID" />
+                <ScalarProperty Name="family" ColumnName="family" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPatient">
+            <EntityTypeMapping TypeName="MediaLabModel.tblPatient">
+              <MappingFragment StoreEntitySet="tblPatient">
+                <ScalarProperty Name="nationalCode" ColumnName="nationalCode" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="family" ColumnName="family" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVisitType">
+            <EntityTypeMapping TypeName="MediaLabModel.tblVisitType">
+              <MappingFragment StoreEntitySet="tblVisitType">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblVisitPerDoc">
+            <EntityTypeMapping TypeName="MediaLabModel.tblVisitPerDoc">
+              <MappingFragment StoreEntitySet="tblVisitPerDoc">
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="fkTypeID" ColumnName="fkTypeID" />
+                <ScalarProperty Name="fkDocID" ColumnName="fkDocID" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewVisitPerDoc">
+            <EntityTypeMapping TypeName="MediaLabModel.viewVisitPerDoc">
+              <MappingFragment StoreEntitySet="viewVisitPerDoc">
+                <ScalarProperty Name="tblVstTypPkID" ColumnName="tblVstTypPkID" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="duration" ColumnName="duration" />
+                <ScalarProperty Name="fkTypeID" ColumnName="fkTypeID" />
+                <ScalarProperty Name="fkDocID" ColumnName="fkDocID" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewAppointment">
+            <EntityTypeMapping TypeName="MediaLabModel.viewAppointment">
+              <MappingFragment StoreEntitySet="viewAppointment">
+                <ScalarProperty Name="eDate" ColumnName="eDate" />
+                <ScalarProperty Name="fkVTID" ColumnName="fkVTID" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="pNC" ColumnName="pNC" />
+                <ScalarProperty Name="fkAppointmentStatus" ColumnName="fkAppointmentStatus" />
+                <ScalarProperty Name="appointmentStatus" ColumnName="appointmentStatus" />
+                <ScalarProperty Name="pMobile" ColumnName="pMobile" />
+                <ScalarProperty Name="pFamily" ColumnName="pFamily" />
+                <ScalarProperty Name="pName" ColumnName="pName" />
+                <ScalarProperty Name="time" ColumnName="time" />
+                <ScalarProperty Name="fSDate" ColumnName="fSDate" />
+                <ScalarProperty Name="family" ColumnName="family" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="fkPID" ColumnName="fkPID" />
+                <ScalarProperty Name="sDate" ColumnName="sDate" />
+                <ScalarProperty Name="fkDocID" ColumnName="fkDocID" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCommon">
+            <EntityTypeMapping TypeName="MediaLabModel.tblCommon">
+              <MappingFragment StoreEntitySet="tblCommon">
+                <ScalarProperty Name="fkLngID" ColumnName="fkLngID" />
+                <ScalarProperty Name="fkTypID" ColumnName="fkTypID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="itmContent" ColumnName="itmContent" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewCommon">
+            <EntityTypeMapping TypeName="MediaLabModel.viewCommon">
+              <MappingFragment StoreEntitySet="viewCommon">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="fkTypID" ColumnName="fkTypID" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblType">
+            <EntityTypeMapping TypeName="MediaLabModel.tblType">
+              <MappingFragment StoreEntitySet="tblType">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblLanguage">
+            <EntityTypeMapping TypeName="MediaLabModel.tblLanguage">
+              <MappingFragment StoreEntitySet="tblLanguage">
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="lngName" ColumnName="lngName" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="viewChangeLng">
+            <EntityTypeMapping TypeName="MediaLabModel.viewChangeLng">
+              <MappingFragment StoreEntitySet="viewChangeLng">
+                <ScalarProperty Name="language" ColumnName="language" />
+                <ScalarProperty Name="lngName" ColumnName="lngName" />
+                <ScalarProperty Name="fkLngID" ColumnName="fkLngID" />
+                <ScalarProperty Name="fkTypID" ColumnName="fkTypID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="itmContent" ColumnName="itmContent" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="pkID" ColumnName="pkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram DiagramId="ca4ccc5bcedc42c2bc098addd53fd8e9" Name="Diagram1">
+        <EntityTypeShape EntityType="MediaLabModel.tblAppointment" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaLabModel.tblAppointmentStatus" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaLabModel.tblDepartment" Width="1.5" PointX="1.5" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaLabModel.tblDoctor" Width="1.5" PointX="0.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaLabModel.tblPatient" Width="1.5" PointX="0.75" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaLabModel.tblVisitType" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaLabModel.tblVisitPerDoc" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaLabModel.viewVisitPerDoc" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MediaLabModel.viewAppointment" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="MediaLabModel.FK_tblAppointment_tblAppointmentStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="MediaLabModel.FK_tblAppointment_tblDoctor" ManuallyRouted="false" />
+        <AssociationConnector Association="MediaLabModel.FK_tblAppointment_tblPatient" ManuallyRouted="false" />
+        <AssociationConnector Association="MediaLabModel.FK_tblAppointment_tblVisitType" ManuallyRouted="false" />
+        <AssociationConnector Association="MediaLabModel.FK_tblDoctor_tblDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="MediaLabModel.FK_tblVisitPerDoc_tblDoctor" ManuallyRouted="false" />
+        <AssociationConnector Association="MediaLabModel.FK_tblVisitPerDoc_tblVisitType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MediaLabModel.tblCommon" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="MediaLabModel.viewCommon" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MediaLabModel.tblType" Width="1.5" PointX="5.125" PointY="12" />
+        <AssociationConnector Association="MediaLabModel.FK_tblCommon_tblType" />
+        <EntityTypeShape EntityType="MediaLabModel.tblLanguage" Width="1.5" PointX="8.375" PointY="3.875" />
+        <AssociationConnector Association="MediaLabModel.FK_tblCommon_tblLanguage" />
+        <EntityTypeShape EntityType="MediaLabModel.viewChangeLng" Width="1.5" PointX="9.375" PointY="6.75" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

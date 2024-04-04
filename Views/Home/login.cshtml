@@ -1,0 +1,44 @@
+﻿@{
+    if (Request.Cookies["userId"] != null)
+    {
+        if (Request.Cookies["userId"].Value != null)
+        {
+            Response.Redirect("~/Home/recept");
+        }
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="~/assets/css/loginCss.css">
+    <meta name="viewport" content="width=device-width" />
+    <title>login</title>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            <div class="register-form">
+                <input type="text" placeholder="name" />
+                <input type="password" placeholder="password" />
+                <input type="text" placeholder="email address" />
+                <button>create</button>
+                <p class="message">Already registered? <a href="#">Sign In</a></p>
+            </div>
+            <div class="login-form">
+                <input id="personalNumHtml" type="number" placeholder="username" />
+                <input id="passHtml" type="password" placeholder="password" />
+                <button onclick="login()">login</button>
+                <p class="message">
+                    Forget Password? <a href="#">
+                        change your password
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="~/assets/js/loginJs.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>
